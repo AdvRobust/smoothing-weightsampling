@@ -138,7 +138,6 @@ class SmoothedDetector(Smooth):
 
 
 class ImpSmooth(Smooth):
-    # Smoothing for CIFAR10 and MNIST
     def __init__(self, base_classifier: torch.nn.Module, detector: SmoothedDetector, detector_nd: int, num_classes: int, sigma: float):
         super(ImpSmooth, self).__init__(base_classifier, num_classes, sigma)
         self.detector = detector
