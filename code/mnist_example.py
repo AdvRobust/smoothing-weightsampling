@@ -1,6 +1,6 @@
 # coding=utf-8
 import torch
-from dataset import get_dataset
+from datasets import get_dataset
 from architectures import get_architecture
 from certify import eval_certify
 
