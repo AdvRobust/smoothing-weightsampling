@@ -12,4 +12,4 @@ The contents of this repository are as follows:
 
 - [figures/](https://github.com/AdvRobust/smoothing-weightsampling/tree/master/figures/mnist) contains the plots that are shown in our experiments
 
-We further provide an example of how to run our code, and checkpoints for MNIST can be downloaded from [Here](https://1drv.ms/u/s!ArfDZDT3m0qHg07qkCQaGxkS06qx?e=GbzB2m)
+We further provide an [example](https://github.com/AdvRobust/smoothing-weightsampling/blob/master/code/mnist_example.py) of how to run our code, and checkpoints for MNIST can be downloaded from [Here](https://1drv.ms/u/s!ArfDZDT3m0qHg07qkCQaGxkS06qx?e=GbzB2m)
