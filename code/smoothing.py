@@ -166,12 +166,12 @@ class ImpSmooth(Smooth):
         output = self.base_classifier(x).detach().cpu().numpy()
         pred = output.argmax(axis=1)[0]
         softmax_output = softmax(output)
-        softmax_diff = [(softmax_output[0][pred] - softmax_output[0][i]) for i in range(10)]
+        softmax_diff = [(softmax_output[0][pred] - softmax_output[0][i]) for i in range(self.num_classes)]
         self.penalize_weights = softmax_diff
 
     def sample_noise(self, x, num, batch_size):
         with torch.no_grad():
-            counts_with_penalize = np.zeros(10, dtype=int)
+            counts_with_penalize = np.zeros(self.num_classes, dtype=int)
             for _ in range(ceil(num / batch_size)):
                 this_batch_size = min(batch_size, num)
                 num -= this_batch_size
@@ -181,7 +181,7 @@ class ImpSmooth(Smooth):
                 outputs = self.base_classifier(batch + noise)
                 detector_rs = [self.detector.predict(output, n=self.detector_nd, alpha=0.001, batch_size=400) for output in outputs]
                 predictions = outputs.argmax(1)
-                counts_with_penalize += self.count_arr_detector_penalize(predictions.cpu().numpy(), detector_rs, 10)
+                counts_with_penalize += self.count_arr_detector_penalize(predictions.cpu().numpy(), detector_rs, self.num_classes)
             return counts_with_penalize
 
     def count_arr_detector_penalize(self, arr, detector_rs, length):
@@ -190,8 +190,7 @@ class ImpSmooth(Smooth):
             if detector_rs[i] == 0:
                 counts[arr[i]] += 1
             else:
-                # counts[arr[i]] += -self.penalize_weights[arr[i]]
-                counts[arr[i]] += -0.20
+                counts[arr[i]] += -self.penalize_weights[arr[i]]
         result = np.zeros(length, dtype=int)
         for i in range(len(counts)):
             if counts[i] <= 0:
