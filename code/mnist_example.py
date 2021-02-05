@@ -47,6 +47,7 @@ def certify():
         detector_noise = 0.12
         detector_nd = 300
         base_noise = 0.25
+        save_path = "test.txt"
 
     args = Args()
     eval_certify(detector, base, dataset, args)
